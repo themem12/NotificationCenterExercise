@@ -16,6 +16,13 @@ class ThirdViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        NotificationCenter.default.addObserver(self, selector: #selector(notificationReceived(_:)), name: .loginSuccess, object: nil)
+    }
+    
+    @objc private func notificationReceived(_ notification: Notification) {
+        guard let userInfo = notification.userInfo?["userInfo"] as? [String: String] else { return }
+        nameLabel.text = userInfo["userName"]
+        emailLabel.text = userInfo["userEmail"]
     }
 
 }
